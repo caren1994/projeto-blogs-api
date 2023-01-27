@@ -16,6 +16,20 @@ id: message.id,
 const token = tokenGenerate(payload);
 return res.status(201).json({ token });
 };
+const findAllUsers = async (req, res) => {
+const { type, message } = await userService.findAllUsers();
+if (type) return res.status(errorMap.mapError(type)).json({ message });
+res.status(200).json(message);
+};
+
+const findById = async (req, res) => {
+const { id } = req.params;
+const { type, message } = await userService.findById(id);
+if (type) return res.status(errorMap.mapError(type)).json({ message });
+return res.status(200).json(message);
+};
 module.exports = {
   createUser,
+  findAllUsers,
+  findById,
 };
