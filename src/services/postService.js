@@ -21,18 +21,18 @@ const findAll = async () => {
   const posts = await BlogPost.findAll({
     include: [
       {
-        model: User,
-        as: 'user',
-        attributes: { exclude: ['password'] },
-      },
-      {
         model: Category,
         as: 'categories',
         through: { attributes: [] },
       },
+      {
+        model: User,
+        as: 'user',
+        attributes: { exclude: ['password'] },
+      },
     ],
   });
-  return { type: 200, message: posts };
+  return posts;
 };
 const createPost = async (id, { title, content, categoryIds }) => {
   try {

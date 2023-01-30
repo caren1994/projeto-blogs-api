@@ -3,12 +3,12 @@ const PostCategory=sequelize.define(
 'PostCategory',{      
   postId: { 
     type: DataTypes.INTEGER, 
-    foreingKey: true, 
+    foreignKey: true, 
     allowNull: false 
   },
   categoryId: { 
     type: DataTypes.INTEGER,
-     foreingKey: true, 
+     foreignKey: true, 
      allowNull: false
      },
     },
@@ -21,14 +21,14 @@ PostCategory.associate=(models)=>{
   models.Category.belongsToMany(models.BlogPost,{
     as:'blog_post',
     through:PostCategory,
-    foreingKey:'categoryId',
+    foreignKey:'categoryId',
     otherKey:'postId'
   })
 
   models.BlogPost.belongsToMany(models.Category,{
     as:'categories',
     through:PostCategory,
-    foreingKey:'postId',
+    foreignKey:'postId',
     otherKey:'categoryId'
   })
 }
