@@ -28,8 +28,14 @@ const { type, message } = await userService.findById(id);
 if (type) return res.status(errorMap.mapError(type)).json({ message });
 return res.status(200).json(message);
 };
+const deleteUser = async (req, res) => {
+  const { user } = req;
+ await userService.deleteUser(user.id);
+ res.status(204).json();
+};
 module.exports = {
   createUser,
   findAllUsers,
   findById,
+  deleteUser,
 };

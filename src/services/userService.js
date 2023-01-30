@@ -22,8 +22,12 @@ const user = await User.findOne({ where: { id }, attributes: { exclude: ['passwo
 if (!user) return { type: 'NOT_FOUND', message: 'User does not exist' };
 return { type: null, message: user.dataValues };
 };
+const deleteUser = async (id) => {
+  await User.destroy({ where: { id } });
+};
 module.exports = {
   createUser,
   findAllUsers,
   findById,
+  deleteUser,
 };
