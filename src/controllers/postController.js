@@ -20,9 +20,20 @@ const findAll = async (req, res) => {
   
   res.status(200).json(posts);
   };
+  const updatePost = async (req, res) => {
+    const { id: idUser } = req.user;// recupera o iduser que foi enviado na verificação da authorization
+    const { id } = req.params;
+  
+    const { type, message } = await postService.updatePost(idUser, id, req.body);
+  
+    if (type) return res.status(401).json({ message });
+  
+    res.status(200).json(message);
+  };
 
 module.exports = {
   createPost,
   findId,
   findAll,
+  updatePost,
 };

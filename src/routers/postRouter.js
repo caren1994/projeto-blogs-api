@@ -1,10 +1,12 @@
 const express = require('express');
 
 const { postController } = require('../controllers');
+const { bodyValidateUpdate } = require('../middlewares/bodyValidadeUpdate');
 const { bodyValidateAuthorization } = require('../middlewares/bodyValidateAuthorization');
 const { bodyValidatePost } = require('../middlewares/bodyValidatePost');
 
 const router = express.Router();
+router.put('/:id', bodyValidateAuthorization, bodyValidateUpdate, postController.updatePost);
 router.post('/', bodyValidateAuthorization, bodyValidatePost, postController.createPost);
 router.get('/', bodyValidateAuthorization, postController.findAll);
 router.get('/:id', bodyValidateAuthorization, postController.findId);

@@ -49,9 +49,23 @@ return { type: null, message };
     return { type: 'INVALID_CATEGORYID', message: 'one or more "categoryIds" not found' };
   }
 };
+const updatePost = async (idUser, id, body) => {
+  const { type, message } = await findId(id);
+  if (type) return { type, message };
+
+  if (message.userId !== idUser) { 
+    return { type: 'WITHOUT_PERMISSION', message: 'Unauthorized user' }; 
+  }
+
+  await BlogPost.update(body, { where: { id } });
+
+  const result = await findId(id);
+  return { type: null, message: result.message };// ele retorna uma mensagem:post por isso o result.message
+};
 
 module.exports = {
   createPost,
 findId,
 findAll,
+updatePost,
 };
